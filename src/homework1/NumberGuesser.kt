@@ -4,17 +4,17 @@ import kotlin.random.Random
 
 fun main() {
     //Flags for init and game loops
-    var isRunning: Boolean = true
-    var isInitializing: Boolean = true
+    var isRunning = true
+    var isInitializing = true
 
     //Flag for game restart
-    var isFinished: Boolean = false
+    var isFinished = false
 
 
     //Variables for game
     var difficulty: Int?
-    var guesses: Int = 0
-    var number: Int = 0
+    var guesses = 0
+    var number = 0
 
     printWelcome()
     gameLoop@ while (isRunning) {
@@ -42,7 +42,10 @@ fun main() {
                             break@gameLoop
                         }
                         else -> {
-                            printWarning("Input number was not one of the options listed. Please input a valid number.")
+                            printWarning(
+                                "Input number was not one of the options listed." +
+                                        " Please input a valid number."
+                            )
                             continue@initLoop
                         }
                     }
@@ -86,7 +89,7 @@ fun main() {
                         else -> {
                             println("=======================================")
                             println("Your guess was spot on.")
-                            println("YOU HAVE WON!")
+                            println("YOU WON!")
                             println("=======================================")
                             isFinished = true
                         }
