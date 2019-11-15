@@ -70,7 +70,7 @@ fun main() {
             printStatus(guesses)
             var guess: Int? = readLine()?.toIntOrNull()
             if (guess != null) {
-                if (guess in 0..100) {
+                if (guess in 1..100) {
                     when {
                         guess > number -> {
                             println("=======================================")
@@ -148,7 +148,7 @@ fun printDifficultyMenu() {
 
 fun printGameStart() {
     println("=======================================")
-    println("The game has started. Try to guess the number between 0 and 100.")
+    println("The game has started. Try to guess the number between 1 and 100.")
     println("=======================================")
 }
 
