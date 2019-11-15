@@ -1,6 +1,7 @@
 package homework1
 
 import kotlin.random.Random
+import homework1.util.*
 
 fun main() {
 
@@ -54,7 +55,7 @@ fun main() {
                         printDifficulty("Hard", guesses)
                     }
                     4 -> {
-                        println("Bye")
+                        printGoodbye()
                         state = 0
                         continue@gameLoop
                     }
@@ -87,24 +88,17 @@ fun main() {
                     continue@gameLoop
                 }
                 guess > number -> {
-                    println("=======================================")
-                    println("Your guess was higher than the number. Try again.")
-                    println("=======================================")
+                    printGuessHigher()
                     guesses--
                     continue@gameLoop
                 }
                 guess < number -> {
-                    println("=======================================")
-                    println("Your guess was lower than the number. Try again.")
-                    println("=======================================")
+                    printGuessLower()
                     guesses--
                     continue@gameLoop
                 }
                 guess == number -> {
-                    println("=======================================")
-                    println("Your guess was spot on.")
-                    println("YOU WON!")
-                    println("=======================================")
+                    printGuessCorrect()
                     state = 3
                 }
             }
@@ -116,65 +110,10 @@ fun main() {
             !in 1..2 -> printWarning("Input number was not one of the options listed. Please input a valid number.")
             1 -> state = 1
             2 -> {
-                println("Bye")
+                printGoodbye()
                 state = 0
                 continue@gameLoop
             }
         }
     }
-}
-
-/**
- * Functions for printing different parts of information on the screen
- */
-fun printWelcome() {
-    println("=======================================")
-    println("GUESS THE NUMBER".padStart(27))
-    println("=======================================")
-}
-
-fun printDifficultyMenu() {
-    println("=======================================")
-    println("Please select difficulty(Choose the number indicated before the option)")
-    println("1. - Easy(7 guesses)")
-    println("2. - Medium(5 guesses)")
-    println("3. - Hard(3 guesses)")
-    println("4. - Exit")
-    println("=======================================")
-}
-
-fun printDifficulty(difficulty: String, guesses: Int) {
-    println("Difficulty set to $difficulty. You have $guesses guesses")
-}
-
-fun printGameStart() {
-    println("=======================================")
-    println("The game has started. Try to guess the number between 1 and 100.")
-    println("=======================================")
-}
-
-fun printStatus(guesses: Int) {
-    println("=======================================")
-    println("You have $guesses guesses left")
-    println("=======================================")
-}
-
-fun printZeroGuesses() {
-    println("=======================================")
-    println("You have 0 guesses left")
-    println("GAME OVER.")
-    println("The game will restart.")
-    println("=======================================")
-}
-
-fun printRestart() {
-    println("=======================================")
-    println("Play Again?")
-    println("1. - Yes")
-    println("2. - No")
-    println("=======================================")
-}
-
-fun printWarning(message: String) {
-    println("WARNING: $message")
 }
