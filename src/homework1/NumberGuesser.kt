@@ -112,15 +112,9 @@ fun main() {
 
         printRestart()
         when (readLine()?.toIntOrNull()) {
-            null -> {
-                printWarning("Input was empty or was not a number. Please input a valid number for the guess.")
-            }
-            !in 1..2 -> {
-                printWarning("Input number was not one of the options listed. Please input a valid number.")
-            }
-            1 -> {
-                state = 1
-            }
+            null -> printWarning("Input was empty or was not a number. Please input a valid number for the guess.")
+            !in 1..2 -> printWarning("Input number was not one of the options listed. Please input a valid number.")
+            1 -> state = 1
             2 -> {
                 println("Bye")
                 state = 0
