@@ -9,18 +9,23 @@ fun main() {
      * 0 - Game is not running(i.e. program will exit)
      * 1 - Game is being initialized
      * 2 - Game is running
-     * 3 - Game has finished
+     * 3 - Game has finished(i.e. waiting for restart response)
      */
     var state = 1
 
-    //Variables for game
+    /**
+     * Variables which keep count of the following:
+     * guesses -> number of guesses remaining (depends on selected difficulty)
+     * number -> the randomly generated number which the player has to guess
+     */
     var guesses = 0
     var number = 0
 
     printWelcome()
     gameLoop@ while (state in 1..3) {
-        if (state != 3) {
 
+        //check the state so that the game doesn't start running again in case of invalid input in the restart menu
+        if (state != 3) {
             //Loop for determining difficulty before starting the game
             initLoop@ while (state == 1) {
                 printDifficultyMenu()
@@ -37,16 +42,16 @@ fun main() {
                         continue@initLoop
                     }
                     1 -> {
-                        println("Difficulty set to Easy. You have 7 guesses")
                         guesses = 7
+                        printDifficulty("Easy", guesses)
                     }
                     2 -> {
-                        println("Difficulty set to Medium. You have 5 guesses")
                         guesses = 5
+                        printDifficulty("Medium", guesses)
                     }
                     3 -> {
-                        println("Difficulty set to Hard. You have 3 guesses")
                         guesses = 3
+                        printDifficulty("Hard", guesses)
                     }
                     4 -> {
                         println("Bye")
@@ -54,10 +59,8 @@ fun main() {
                         continue@gameLoop
                     }
                 }
-                /**
-                 * After setting difficulty number is generated and initialization is complete
-                 * the game loop can begin to execute
-                 */
+
+                //After setting the difficulty, the number is generated and initialization is complete
                 number = Random.nextInt(0, 100)
                 state = 2
                 printGameStart()
@@ -128,7 +131,7 @@ fun main() {
 }
 
 /**
- * Functions for printing different parts of information for the game
+ * Functions for printing different parts of information on the screen
  */
 fun printWelcome() {
     println("=======================================")
@@ -144,6 +147,10 @@ fun printDifficultyMenu() {
     println("3. - Hard(3 guesses)")
     println("4. - Exit")
     println("=======================================")
+}
+
+fun printDifficulty(difficulty: String, guesses: Int) {
+    println("Difficulty set to $difficulty. You have $guesses guesses")
 }
 
 fun printGameStart() {
