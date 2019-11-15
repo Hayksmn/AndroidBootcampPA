@@ -24,43 +24,42 @@ fun main() {
             initLoop@ while (isInitializing) {
                 printDifficultyMenu()
                 difficulty = readLine()?.toIntOrNull()
-                if (difficulty != null) {
-                    when (difficulty) {
-                        1 -> {
-                            println("Difficulty set to Easy. You have 7 guesses")
-                            guesses = 7
-                        }
-                        2 -> {
-                            println("Difficulty set to Medium. You have 5 guesses")
-                            guesses = 5
-                        }
-                        3 -> {
-                            println("Difficulty set to Hard. You have 3 guesses")
-                            guesses = 3
-                        }
-                        4 -> {
-                            println("Bye")
-                            break@gameLoop
-                        }
-                        else -> {
-                            printWarning(
-                                "Input number was not one of the options listed." +
-                                        " Please input a valid number."
-                            )
-                            continue@initLoop
-                        }
+                when (difficulty) {
+                    null -> {
+                        printWarning("Input was empty or was not a number. Please input a valid number.")
+                        continue@initLoop
                     }
-                    /**
-                     * After setting difficulty number is generated and initialization is complete
-                     * the game loop can begin to execute
-                     */
-                    number = Random.nextInt(0, 100)
-                    isInitializing = false
-                    printGameStart()
-                } else {
-                    //Input was empty or was not a number so loop starts again
-                    printWarning("Input was empty or was not a number. Please input a valid number.")
+                    !in 1..4 -> {
+                        printWarning(
+                            "Input number was not one of the options listed." +
+                                    " Please input a valid number."
+                        )
+                        continue@initLoop
+                    }
+                    1 -> {
+                        println("Difficulty set to Easy. You have 7 guesses")
+                        guesses = 7
+                    }
+                    2 -> {
+                        println("Difficulty set to Medium. You have 5 guesses")
+                        guesses = 5
+                    }
+                    3 -> {
+                        println("Difficulty set to Hard. You have 3 guesses")
+                        guesses = 3
+                    }
+                    4 -> {
+                        println("Bye")
+                        break@gameLoop
+                    }
                 }
+                /**
+                 * After setting difficulty number is generated and initialization is complete
+                 * the game loop can begin to execute
+                 */
+                number = Random.nextInt(0, 100)
+                isInitializing = false
+                printGameStart()
             }
 
             //Checks if the player has run out of guesses
@@ -74,59 +73,56 @@ fun main() {
 
             //Main game logic
             var guess: Int? = readLine()?.toIntOrNull()
-            if (guess != null) {
-                if (guess in 1..100) {
-                    when {
-                        guess > number -> {
-                            println("=======================================")
-                            println("Your guess was higher than the number. Try again.")
-                            println("=======================================")
-                            guesses--
-                            continue@gameLoop
-                        }
-                        guess < number -> {
-                            println("=======================================")
-                            println("Your guess was lower than the number. Try again.")
-                            println("=======================================")
-                            guesses--
-                            continue@gameLoop
-                        }
-                        else -> {
-                            println("=======================================")
-                            println("Your guess was spot on.")
-                            println("YOU WON!")
-                            println("=======================================")
-                            isFinished = true
-                        }
-                    }
-                } else {
+            when {
+                guess == null -> {
+                    printWarning("Input was empty or was not a number. Please input a valid number for the guess.")
+                    continue@gameLoop
+                }
+                guess !in 1..100 -> {
                     printWarning("The number you guessed is not in the defined range(0-100). Please try again.")
                     continue@gameLoop
                 }
-            } else {
-                printWarning("Input was empty or was not a number. Please input a valid number for the guess.")
-                continue@gameLoop
+                guess > number -> {
+                    println("=======================================")
+                    println("Your guess was higher than the number. Try again.")
+                    println("=======================================")
+                    guesses--
+                    continue@gameLoop
+                }
+                guess < number -> {
+                    println("=======================================")
+                    println("Your guess was lower than the number. Try again.")
+                    println("=======================================")
+                    guesses--
+                    continue@gameLoop
+                }
+                guess == number -> {
+                    println("=======================================")
+                    println("Your guess was spot on.")
+                    println("YOU WON!")
+                    println("=======================================")
+                    isFinished = true
+                }
             }
         }
 
         printRestart()
         var restart: Int? = readLine()?.toIntOrNull()
-        if (restart != null) {
-            when (restart) {
-                1 -> {
-                    isInitializing = true
-                    isFinished = false
-                }
-                2 -> {
-                    println("Bye")
-                    break@gameLoop
-                }
-                else -> {
-                    printWarning("Input number was not one of the options listed. Please input a valid number.")
-                }
+        when (restart) {
+            null -> {
+                printWarning("Input was empty or was not a number. Please input a valid number for the guess.")
             }
-        } else {
-            printWarning("Input was empty or was not a number. Please input a valid number for the guess.")
+            !in 1..2 -> {
+                printWarning("Input number was not one of the options listed. Please input a valid number.")
+            }
+            1 -> {
+                isInitializing = true
+                isFinished = false
+            }
+            2 -> {
+                println("Bye")
+                break@gameLoop
+            }
         }
     }
 }
