@@ -84,7 +84,7 @@ fun main() {
                     continue@gameLoop
                 }
                 guess !in 1..100 -> {
-                    printWarning("The number you guessed is not in the defined range(0-100). Please try again.")
+                    printWarning("The number you guessed is not in the defined range(1-100). Please try again.")
                     continue@gameLoop
                 }
                 guess > number -> {
