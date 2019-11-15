@@ -19,6 +19,7 @@ fun main() {
     printWelcome()
     gameLoop@ while (isRunning) {
         if (!isFinished) {
+
             //Loop for determining difficulty before starting the game
             initLoop@ while (isInitializing) {
                 printDifficultyMenu()
@@ -62,12 +63,16 @@ fun main() {
                 }
             }
 
+            //Checks if the player has run out of guesses
             if (guesses == 0) {
                 printZeroGuesses()
                 isInitializing = true;
                 continue@gameLoop
             }
+
             printStatus(guesses)
+
+            //Main game logic
             var guess: Int? = readLine()?.toIntOrNull()
             if (guess != null) {
                 if (guess in 1..100) {
@@ -104,11 +109,7 @@ fun main() {
             }
         }
 
-        println("=======================================")
-        println("Play Again?")
-        println("1. - Yes")
-        println("2. - No")
-        println("=======================================")
+        printRestart()
         var restart: Int? = readLine()?.toIntOrNull()
         if (restart != null) {
             when (restart) {
@@ -130,6 +131,9 @@ fun main() {
     }
 }
 
+/**
+ * Functions for printing different parts of information for the game
+ */
 fun printWelcome() {
     println("=======================================")
     println("GUESS THE NUMBER".padStart(27))
@@ -163,6 +167,14 @@ fun printZeroGuesses() {
     println("You have 0 guesses left")
     println("GAME OVER.")
     println("The game will restart.")
+    println("=======================================")
+}
+
+fun printRestart() {
+    println("=======================================")
+    println("Play Again?")
+    println("1. - Yes")
+    println("2. - No")
     println("=======================================")
 }
 
