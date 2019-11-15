@@ -112,7 +112,6 @@ fun main() {
             2 -> {
                 printGoodbye()
                 state = 0
-                continue@gameLoop
             }
         }
     }
