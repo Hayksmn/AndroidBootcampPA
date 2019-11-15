@@ -53,7 +53,6 @@ fun main() {
                     number = Random.nextInt(0, 100)
                     isInitializing = false
                     printGameStart()
-                    println(number)
                 } else {
                     //Input was empty or was not a number so loop starts again
                     printWarning("Input was empty or was not a number. Please input a valid number.")
