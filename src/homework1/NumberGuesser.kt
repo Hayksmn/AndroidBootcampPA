@@ -3,28 +3,28 @@ package homework1
 import kotlin.random.Random
 
 fun main() {
-    //Flags for init and game loops
-    var isRunning = true
-    var isInitializing = true
 
-    //Flag for game restart
-    var isFinished = false
-
+    /**
+     * State of the game
+     * 0 - Game is not running(i.e. program will exit)
+     * 1 - Game is being initialized
+     * 2 - Game is running
+     * 3 - Game has finished
+     */
+    var state = 1
 
     //Variables for game
-    var difficulty: Int?
     var guesses = 0
     var number = 0
 
     printWelcome()
-    gameLoop@ while (isRunning) {
-        if (!isFinished) {
+    gameLoop@ while (state in 1..3) {
+        if (state != 3) {
 
             //Loop for determining difficulty before starting the game
-            initLoop@ while (isInitializing) {
+            initLoop@ while (state == 1) {
                 printDifficultyMenu()
-                difficulty = readLine()?.toIntOrNull()
-                when (difficulty) {
+                when (readLine()?.toIntOrNull()) {
                     null -> {
                         printWarning("Input was empty or was not a number. Please input a valid number.")
                         continue@initLoop
@@ -50,7 +50,8 @@ fun main() {
                     }
                     4 -> {
                         println("Bye")
-                        break@gameLoop
+                        state = 0
+                        continue@gameLoop
                     }
                 }
                 /**
@@ -58,21 +59,21 @@ fun main() {
                  * the game loop can begin to execute
                  */
                 number = Random.nextInt(0, 100)
-                isInitializing = false
+                state = 2
                 printGameStart()
             }
 
             //Checks if the player has run out of guesses
             if (guesses == 0) {
                 printZeroGuesses()
-                isInitializing = true;
+                state = 1
                 continue@gameLoop
             }
 
             printStatus(guesses)
 
             //Main game logic
-            var guess: Int? = readLine()?.toIntOrNull()
+            var guess = readLine()?.toIntOrNull()
             when {
                 guess == null -> {
                     printWarning("Input was empty or was not a number. Please input a valid number for the guess.")
@@ -101,14 +102,13 @@ fun main() {
                     println("Your guess was spot on.")
                     println("YOU WON!")
                     println("=======================================")
-                    isFinished = true
+                    state = 3
                 }
             }
         }
 
         printRestart()
-        var restart: Int? = readLine()?.toIntOrNull()
-        when (restart) {
+        when (readLine()?.toIntOrNull()) {
             null -> {
                 printWarning("Input was empty or was not a number. Please input a valid number for the guess.")
             }
@@ -116,12 +116,12 @@ fun main() {
                 printWarning("Input number was not one of the options listed. Please input a valid number.")
             }
             1 -> {
-                isInitializing = true
-                isFinished = false
+                state = 1
             }
             2 -> {
                 println("Bye")
-                break@gameLoop
+                state = 0
+                continue@gameLoop
             }
         }
     }
