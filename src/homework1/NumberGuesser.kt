@@ -35,7 +35,7 @@ fun main() {
                             guesses = 5
                         }
                         3 -> {
-                            println("Difficulty set to Hard. You have 4 guesses")
+                            println("Difficulty set to Hard. You have 3 guesses")
                             guesses = 3
                         }
                         4 -> {
