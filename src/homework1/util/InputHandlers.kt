@@ -42,7 +42,7 @@ fun getInitInput(): Int {
 /**
  * Function for handling restart prompt input
  * and returning a state value accordingly.
- * @param state The current state value of the game.
+ * Takes the current [state] value of the game.
  * @return Returns unchanged value of state if there is an input error,
  *         1 if the user wants to restart the game,
  *         0 if the user wants to exit the game.
@@ -73,8 +73,8 @@ fun getRestartInput(state: Int): Int {
 }
 
 /**
- * Function for handling guessing input
- * @param number The randomly generated number that the user needs to guess.
+ * Function for handling guessing input.
+ * Takes the randomly generated [number] that the user needs to guess.
  * @return Returns -1 if there is an input error,
  *         -2 if the user guessed incorrectly,
  *         0 if the guess was correct.
