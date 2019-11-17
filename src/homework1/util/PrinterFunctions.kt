@@ -1,7 +1,7 @@
 package homework1.util
 
 /**
- * Functions for printing different parts of information on the screen
+ * Functions for printing different parts of information on the screen.
  */
 fun printWelcome() {
     println(

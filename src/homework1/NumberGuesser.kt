@@ -5,18 +5,18 @@ import kotlin.random.Random
 
 fun main() {
     /**
-     * State of the game
-     * 0 - Game is not running(i.e. program will exit)
-     * 1 - Game is being initialized
-     * 2 - Game is running
-     * 3 - Game is complete. Waiting for restart response
+     * State of the game.
+     *     0 - Game is not running(i.e. program will exit)
+     *     1 - Game is being initialized (default)
+     *     2 - Game is running
+     *     3 - Game is complete. Waiting for restart response
      */
     var state = 1
 
     /**
      * Variables which keep count of the following:
-     * guesses -> number of guesses remaining (depends on selected difficulty)
-     * number -> the randomly generated number which the player has to guess
+     *     guesses -> number of guesses remaining (depends on selected difficulty).
+     *     number -> the randomly generated number which the player has to guess.
      */
     var guesses = 0
     var number = 0
@@ -24,9 +24,9 @@ fun main() {
     printWelcome()
     gameLoop@ while (state in 1..3) {
         when (state) {
+            //Initialization Phase
             1 -> {
-                //Initializing the game
-                guesses = initInput()
+                guesses = getInitInput()
                 if (guesses == -1) continue@gameLoop
                 else if (guesses == -2) {
                     printGoodbye()
@@ -38,6 +38,7 @@ fun main() {
                 state = 2
                 printGameStart()
             }
+            //Running Phase
             2 -> {
                 //Checks if the player has run out of guesses
                 if (guesses == 0) {
@@ -46,8 +47,7 @@ fun main() {
                     continue@gameLoop
                 }
                 printStatus(guesses)
-                //Main game logic
-                val guess = guessInput(number)
+                val guess = getGuessInput(number)
                 if (guess == -1) continue@gameLoop
                 else if (guess == -2) {
                     guesses--
@@ -55,7 +55,8 @@ fun main() {
                 }
                 state = 3
             }
-            3 -> state = restartInput(state)  //Prompt for restarting or quitting the game
+            //Game Complete Phase
+            3 -> state = getRestartInput(state)
         }
     }
 }
