@@ -9,7 +9,7 @@ const val EXIT_STRING = "exit"
 
 val userSuggestionController: SuggestionController<User> = UserSuggestionController()
 val tagSuggestionController: SuggestionController<Tag> = TagSuggestionController()
-var searchResult: List<String> = mutableListOf()
+var searchResult = mutableListOf<String>()
 /**
  * Variable for keeping track of what objects the user wants.
  *     0 - Searching for [User].
@@ -80,8 +80,13 @@ fun main() {
                 continue@mainLoop
             }
         }
-        searchResult = mutableListOf()
+        clearResultList()
+
     }
+}
+
+fun clearResultList() {
+    searchResult = mutableListOf()
 }
 
 fun searchUsers(input: String) {
