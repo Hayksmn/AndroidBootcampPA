@@ -93,14 +93,14 @@ fun searchUsers(input: String) {
     searchObjective = 0
     val query: String = input.removePrefix(USER_SEARCH_PREFIX)
     if (!query.isBlank()) {
-        searchResult = userSuggestionController.search(query).map { it.username }
+        searchResult = userSuggestionController.search(query).map { it.username }.toMutableList()
         if (searchResult.isNotEmpty()) {
             println("Search Results: $searchResult")
         } else {
             println("No Results found. Please try again.")
         }
     } else {
-        searchResult = userSuggestionController.recent().toList().map { it.username }
+        searchResult = userSuggestionController.recent().toList().map { it.username }.toMutableList()
         if (searchResult.isNotEmpty()) {
             println("Recent: $searchResult")
         } else {
@@ -122,14 +122,14 @@ fun searchTags(input: String) {
     searchObjective = 1
     val query: String = input.removePrefix(TAG_SEARCH_PREFIX)
     if (!query.isBlank()) {
-        searchResult = tagSuggestionController.search(query).map { it.tag }
+        searchResult = tagSuggestionController.search(query).map { it.tag }.toMutableList()
         if (searchResult.isNotEmpty()) {
             println("Search Results: $searchResult")
         } else {
             println("No Results found. Please try again.")
         }
     } else {
-        searchResult = tagSuggestionController.recent().toList().map { it.tag }
+        searchResult = tagSuggestionController.recent().toList().map { it.tag }.toMutableList()
         if (searchResult.isNotEmpty()) {
             println("Recent: $searchResult")
         } else {
